@@ -1,0 +1,36 @@
+version: '3.9'
+
+services:
+  web-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 3051:3050
+    volumes:
+      - ./:/home/node/app
+    restart: always
+    environment:
+      - PORT=3050
+      - POPULATE=0
+      - MONDB_DB_CONN_STR=mongodb://serhii:serhii_pass@mongo_db:27017/music-game-db?authMechanism=DEFAULT&authSource=admin
+
+    depends_on:
+      - mongo_db
+
+    command: sh -c './entr.dev.sh'
+
+  mongo_db:
+    image: mongo
+    restart: always
+    ports:
+      - 27018:27017
+    volumes:
+      - mongo_data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: serhii
+      MONGO_INITDB_ROOT_PASSWORD: serhii_pass
+      MONGO_INITDB_DATABASE: music-game-db
+
+volumes:
+  mongo_data:

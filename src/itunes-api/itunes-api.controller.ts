@@ -14,10 +14,8 @@ export class ItunesApiController {
     return this.itunesService.search(dto);
   }
 
-  @Get('anyting')
-  async anything() {
-    const url = 'https://httpbin.org/anything';
-    const data = await got.get(url).json();
-    return data;
+  @Get('albums-by-artist')
+  async anything(@Query() dto: SearchProps) {
+    return this.itunesService.getAlbumsByArtist(dto);
   }
 }

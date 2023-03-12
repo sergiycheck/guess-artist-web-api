@@ -8,17 +8,17 @@ dotenv.config({ path: pathEnv });
 const config = {
   port: parseInt(process.env.PORT, 10) || 3000,
   database: {
-    host: process.env.DATABASE_HOST || 'localhost',
-    port: parseInt(process.env.DATABASE_PORT, 10) || 5432,
+    monboDbConnectionString: process.env.MONDB_DB_CONN_STR,
   },
+  populate: parseInt(process.env.POPULATE, 10) ?? 0,
 };
 
 const configSchema = z.object({
   port: z.number(),
   database: z.object({
-    host: z.string(),
-    port: z.number(),
+    monboDbConnectionString: z.string(),
   }),
+  populate: z.number(),
 });
 
 export default configSchema.parse(config);

@@ -1,9 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsString } from 'class-validator';
 
-export class SearchProps {
+class BaseSearchProps {
   [key: string]: string;
+}
 
+export class SearchProps extends BaseSearchProps {
   @ApiProperty()
   @IsNotEmpty()
   @IsString()

@@ -3,3 +3,9 @@
 
 #### req 1
 GET https://{{host}}/search?term=jack+johnson&limit=25
+
+
+
+#### get all library artists
+### required apple developer account 100
+GET https://api.music.apple.com/v1/me/library/artists
