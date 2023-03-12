@@ -12,6 +12,7 @@ import { AllExceptionsFilter } from '../../common/filters/all-exceptions.filter.
 import { CustomConnectionService } from '../../common/resources/common/mongoose-connection.service.js';
 import { CustomLoggerModule } from '../../common/logger/custom-logger.module.js';
 import { ItunesApiModule } from '../itunes-api/itunes-api.module.js';
+import { ArtistModule } from '../artists/artist.module.js';
 
 @Module({
   imports: [
@@ -37,8 +38,10 @@ import { ItunesApiModule } from '../itunes-api/itunes-api.module.js';
       inject: [ConfigService],
     }),
 
-    ItunesApiModule,
     CustomLoggerModule,
+    //
+    ItunesApiModule,
+    ArtistModule,
   ],
   controllers: [AppController],
   providers: [

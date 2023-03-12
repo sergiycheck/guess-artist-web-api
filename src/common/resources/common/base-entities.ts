@@ -12,4 +12,5 @@ export class BaseEntity {
 
 export const EntitiesDocumentNames = {
   User: 'User',
+  Artist: 'Artist',
 };

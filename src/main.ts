@@ -22,7 +22,9 @@ async function bootstrap() {
     }),
   );
 
-  const config = new DocumentBuilder().setTitle('Snitch web api').build();
+  const config = new DocumentBuilder()
+    .setTitle('Guess artist web api game')
+    .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 

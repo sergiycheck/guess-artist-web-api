@@ -7,6 +7,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
+    "start-populate": "nest start --path tsconfig.prefill.json -c nest-cli-prefill.json",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
