@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 import path from 'node:path';
+import z from 'zod';
 
 const pathEnv = path.resolve(process.cwd(), '.env.development');
 dotenv.config({ path: pathEnv });
@@ -10,9 +11,16 @@ const config = {
     host: process.env.DATABASE_HOST || 'localhost',
     port: parseInt(process.env.DATABASE_PORT, 10) || 5432,
   },
-  moralis: {
-    apiKey: process.env.moralis_api_key,
-  },
 };
+
+const configSchema = z.object({
+  port: z.number(),
+  database: z.object({
+    host: z.string(),
+    port: z.number(),
+  }),
+});
+
+configSchema.parse(config);
 
 export default config;

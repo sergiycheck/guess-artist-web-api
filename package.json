@@ -1,5 +1,5 @@
 {
-  "name": "snitch-web-api",
+  "name": "web-api",
   "version": "0.0.1",
   "description": "",
   "author": "",
@@ -21,7 +21,6 @@
   },
   "dependencies": {
     "@fastify/static": "^6.9.0",
-    "@moralisweb3/common-evm-utils": "^2.14.3",
     "@nestjs/common": "^9.0.0",
     "@nestjs/config": "^2.3.1",
     "@nestjs/core": "^9.0.0",
@@ -32,10 +31,10 @@
     "class-validator": "^0.14.0",
     "dotenv": "^16.0.3",
     "joi": "^17.8.3",
-    "moralis": "^2.14.3",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0",
-    "webpack": "^5.76.0"
+    "webpack": "^5.76.0",
+    "zod": "^3.21.4"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.0.0",
