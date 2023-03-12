@@ -7,6 +7,7 @@ import { AppController } from './app.controller.js';
 import configuration from './config/configuration.js';
 import { APP_FILTER } from '@nestjs/core';
 import { AllExceptionsFilter } from './common/filters/all-exceptions.filter.js';
+import { CustomLoggerModule } from './common/logger/custom-logger.module.js';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { AllExceptionsFilter } from './common/filters/all-exceptions.filter.js';
       load: [() => configuration],
     }),
     ItunesApiModule,
+    CustomLoggerModule,
   ],
   controllers: [AppController],
   providers: [

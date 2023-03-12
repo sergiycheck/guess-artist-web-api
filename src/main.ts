@@ -8,6 +8,7 @@ import {
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
 import { AppModule } from './app.module.js';
+import { CustomLogger } from './common/logger/custom-logger.service.js';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
@@ -28,7 +29,9 @@ async function bootstrap() {
   const configService = app.get(ConfigService);
   const port = +configService.get('port');
 
+  const logger = app.get(CustomLogger);
+
   await app.listen(port, '0.0.0.0');
-  console.log('App is listening at', await app.getUrl());
+  logger.log(`App is listening at ${await app.getUrl()}`);
 }
 bootstrap();
