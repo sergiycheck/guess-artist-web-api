@@ -21,6 +21,4 @@ const configSchema = z.object({
   }),
 });
 
-configSchema.parse(config);
-
-export default config;
+export default configSchema.parse(config);

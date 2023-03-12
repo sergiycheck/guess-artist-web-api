@@ -1,0 +1,5 @@
+@host = itunes.apple.com
+
+
+#### req 1
+GET https://{{host}}/search?term=jack+johnson&limit=25

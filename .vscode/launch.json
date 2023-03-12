@@ -1,0 +1,21 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch main.ts",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["run", "start:debug"],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "debug migration",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["run", "migrate:dev"],
+      "console": "integratedTerminal"
+    }
+  ]
+}
