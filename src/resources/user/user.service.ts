@@ -54,7 +54,7 @@ export class UserService extends EntityService<
     };
   }
 
-  async findTop3Players() {
+  async findTop3Players(): Promise<{ count: number; data: UserRes[] }> {
     const res = await this.model.find({}).sort({ points: -1 }).limit(3).exec();
 
     const data = res.map((o) => this.responseMapper.mapResponse(o.toObject()));

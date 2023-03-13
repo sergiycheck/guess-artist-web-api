@@ -8,6 +8,7 @@ import { ResponseMapperModule } from './../../common/resources/common/responseMa
 import { AlbumTaskService } from './album-tasts.service.js';
 import { CustomLoggerModule } from '../../common/logger/custom-logger.module.js';
 import { ArtistModule } from '../artists/artist.module.js';
+import { UserModule } from '../user/user.module.js';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { ArtistModule } from '../artists/artist.module.js';
     ResponseMapperModule,
     CustomLoggerModule,
     ArtistModule,
+    UserModule,
   ],
   providers: [ItunesApiService, AlbumDbService, AlbumTaskService],
   controllers: [ItunesApiController],

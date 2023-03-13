@@ -70,6 +70,6 @@ export class AlbumDbService extends EntityService<
       return { data };
     }
 
-    return { data: undefined };
+    return { data: [] };
   }
 }
