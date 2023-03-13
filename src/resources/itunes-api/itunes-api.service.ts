@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 import got, { CancelableRequest, OptionsInit } from 'got';
 import { URLSearchParams } from 'url';
-import { SearchProps } from './dtos.dto.js';
+import { SearchProps } from './dtos/search-dtos.dto.js';
 
 const itunesUrls = {
   base: 'https://itunes.apple.com',
