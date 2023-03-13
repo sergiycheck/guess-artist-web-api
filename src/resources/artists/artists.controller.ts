@@ -9,6 +9,6 @@ export class ArtistsController {
 
   @Get('all')
   findAll() {
-    return this.artistService.findAll();
+    return this.artistService.findAllMapped();
   }
 }

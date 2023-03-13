@@ -13,6 +13,8 @@ import { CustomConnectionService } from '../../common/resources/common/mongoose-
 import { CustomLoggerModule } from '../../common/logger/custom-logger.module.js';
 import { ItunesApiModule } from '../itunes-api/itunes-api.module.js';
 import { ArtistModule } from '../artists/artist.module.js';
+import { ResponseMapperModule } from '../../common/resources/common/responseMapper/response-mapper.module.js';
+import { UserModule } from '../user/user.module.js';
 
 @Module({
   imports: [
@@ -40,8 +42,11 @@ import { ArtistModule } from '../artists/artist.module.js';
 
     CustomLoggerModule,
     //
+    ResponseMapperModule,
+    //
     ItunesApiModule,
     ArtistModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [
