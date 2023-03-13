@@ -12,5 +12,6 @@ import { ResponseMapperModule } from '../../common/resources/common/responseMapp
   ],
   controllers: [ArtistsController],
   providers: [ArtistService],
+  exports: [ArtistService],
 })
 export class ArtistModule {}

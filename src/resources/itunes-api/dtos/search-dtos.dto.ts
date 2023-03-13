@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEnum, IsNotEmpty, IsString } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 class BaseSearchProps {
   [key: string]: string;
@@ -23,6 +23,11 @@ export class SearchProps extends BaseSearchProps {
   @IsNotEmpty()
   @IsString()
   country: 'US';
+
+  @ApiProperty()
+  @IsOptional()
+  @IsString()
+  limit? = '50';
 }
 
 export enum PredefinedArtistsEnum {

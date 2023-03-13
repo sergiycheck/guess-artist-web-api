@@ -42,8 +42,6 @@ export class ItunesApiService {
 
       //musicArtist, musicTrack, album, musicVideo, mix, song.
       entity: 'album',
-
-      limit: '50',
     };
 
     const result = await this.search(extendedProps);
