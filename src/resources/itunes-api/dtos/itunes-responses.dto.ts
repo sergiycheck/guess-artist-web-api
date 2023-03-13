@@ -2,7 +2,7 @@ import z from 'zod';
 
 export type ItunesResponse<T> = {
   resultCount: number;
-  resulsts: Array<T>;
+  results: Array<T>;
 };
 
 export const albumItunesSchema = z.object({
@@ -29,3 +29,7 @@ export const albumItunesSchema = z.object({
 });
 
 export type AlbumItunesType = z.infer<typeof albumItunesSchema>;
+
+export type UpdateAlbumItutes = AlbumItunesType & {
+  id: string;
+};

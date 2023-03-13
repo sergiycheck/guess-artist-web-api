@@ -10,6 +10,8 @@ import {
   createResponseMapper,
   ResponseMapperInjectedNames,
 } from './responseMapperCreator.js';
+import { AlbumResponse } from '../../../../resources/itunes-api/dtos/responses.dto.js';
+import { AlbumDocument } from '../../../../resources/itunes-api/entities/album.entity.js';
 
 @Module({
   providers: [
@@ -20,6 +22,10 @@ import {
     {
       provide: ResponseMapperInjectedNames.ArtistsResponseMapper,
       useClass: createResponseMapper<ArtistDocument, ArtistResponse>(),
+    },
+    {
+      provide: ResponseMapperInjectedNames.AlbumResponseMapper,
+      useClass: createResponseMapper<AlbumDocument, AlbumResponse>(),
     },
   ],
   exports: [

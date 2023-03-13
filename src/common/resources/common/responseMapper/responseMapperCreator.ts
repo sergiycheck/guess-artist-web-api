@@ -4,6 +4,7 @@ import { Document } from 'mongoose';
 export const ResponseMapperInjectedNames = {
   UserResponseMapper: 'UserResponseMapper',
   ArtistsResponseMapper: 'ArtistsResponseMapper',
+  AlbumResponseMapper: 'AlbumResponseMapper',
 };
 
 export type ResponseMapperType<TClassDoc extends Document, TClassRes> = {

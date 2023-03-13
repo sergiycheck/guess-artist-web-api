@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Document, Model, Types } from 'mongoose';
+import { Model } from 'mongoose';
 import { Artist, ArtistDocument } from './artist.schema.js';
 import { EntityService } from '../../common/resources/common/base.service.js';
 import {

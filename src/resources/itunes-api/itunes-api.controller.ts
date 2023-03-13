@@ -1,17 +1,21 @@
 import { ItunesApiService } from './itunes-api.service.js';
 import { ApiQuery, ApiTags } from '@nestjs/swagger';
-import { Controller, Get, Query } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import {
   PredefinedArtistsEnum,
   PredefinedArtistsSearchProps,
   SearchProps,
   TopCountry,
 } from './dtos/search-dtos.dto.js';
+import { AlbumDbService } from './album-db.service.js';
 
 @ApiTags('itunes-api')
 @Controller('itunes-api')
 export class ItunesApiController {
-  constructor(private readonly itunesService: ItunesApiService) {}
+  constructor(
+    private readonly itunesService: ItunesApiService,
+    private readonly albumDbService: AlbumDbService,
+  ) {}
 
   @Get('search')
   search(@Query() dto: SearchProps) {
@@ -19,14 +23,24 @@ export class ItunesApiController {
   }
 
   @Get('albums-by-artist')
+  @ApiQuery({ name: 'country', enum: TopCountry })
   async albumsByArtist(@Query() dto: SearchProps) {
     return this.itunesService.getAlbumsByArtist(dto);
   }
 
   @ApiQuery({ name: 'term', enum: PredefinedArtistsEnum })
-  @ApiQuery({ name: 'country', enum: TopCountry })
   @Get('albums-by-predefined-artist')
   async albumsByPredefinedArtist(@Query() dto: PredefinedArtistsSearchProps) {
-    return this.itunesService.getAlbumsByArtist(dto);
+    return this.albumDbService.findAllAlbumsByArtist(dto);
+  }
+
+  @Post('populate-albums-by-artist')
+  async populateAlbumsByArtist(@Body() dto: PredefinedArtistsSearchProps) {
+    const res = await this.itunesService.getAlbumsByArtist({
+      term: dto.term,
+      country: 'US',
+    });
+
+    return this.albumDbService.checkIfExistsAndBatchCreate(res.results);
   }
 }

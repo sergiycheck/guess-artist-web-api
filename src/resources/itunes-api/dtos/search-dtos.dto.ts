@@ -5,6 +5,14 @@ class BaseSearchProps {
   [key: string]: string;
 }
 
+export enum TopCountry {
+  CN = 'CN',
+  IN = 'IN',
+  US = 'US',
+  ID = 'ID',
+  PK = 'PK',
+}
+
 export class SearchProps extends BaseSearchProps {
   @ApiProperty()
   @IsNotEmpty()
@@ -14,7 +22,7 @@ export class SearchProps extends BaseSearchProps {
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
-  country: string;
+  country: 'US';
 }
 
 export enum PredefinedArtistsEnum {
@@ -38,22 +46,9 @@ export enum PredefinedArtistsEnum {
   ['AC/DC'] = 'AC/DC',
 }
 
-export enum TopCountry {
-  CN = 'CN',
-  IN = 'IN',
-  US = 'US',
-  ID = 'ID',
-  PK = 'PK',
-}
-
 export class PredefinedArtistsSearchProps extends BaseSearchProps {
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
-  term: 'The Beatles';
-
-  @ApiProperty()
-  @IsNotEmpty()
-  @IsString()
-  country: 'US';
+  term: string;
 }

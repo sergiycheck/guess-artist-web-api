@@ -12,7 +12,7 @@ export default async function populateDb(app: INestApplicationContext) {
   if (populateEnv === 1) {
     const connection = app.get(CustomConnectionService).getConnection();
     const dbInitializer = new DbInitializer(connection, logger);
-    await dbInitializer.seedManyDocumentsIntoDb();
+    await dbInitializer.seedManyDocumentsIntoDb(app);
     logger.log('Db was successfully populated!');
   } else {
     logger.log('Population arg was not set to 0');
