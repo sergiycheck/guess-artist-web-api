@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, BadRequestException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
@@ -31,6 +31,12 @@ export class UserService extends EntityService<
   }
 
   async createMapped(createDto: CreateUserDto) {
+    const userExists = await this.model.exists({ name: createDto.name });
+    if (userExists)
+      throw new BadRequestException(
+        `User with name ${createDto.name} already exists.`,
+      );
+
     const res = await this.create(createDto);
     const mappedRes = this.responseMapper.mapResponse(res.toObject());
     return mappedRes;
@@ -44,6 +50,17 @@ export class UserService extends EntityService<
 
     return {
       count: res.count,
+      data,
+    };
+  }
+
+  async findTop3Players() {
+    const res = await this.model.find({}).sort({ points: -1 }).limit(3).exec();
+
+    const data = res.map((o) => this.responseMapper.mapResponse(o.toObject()));
+
+    return {
+      count: 3,
       data,
     };
   }

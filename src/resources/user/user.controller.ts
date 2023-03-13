@@ -29,6 +29,11 @@ export class UserController {
     return this.userService.finAllMapped();
   }
 
+  @Get('top-3')
+  findTop3() {
+    return this.userService.findTop3Players();
+  }
+
   @Get(':id')
   findOne(
     @Param('id', new NotEmptyPipe('id'), new CustomParseObjectIdPipe())

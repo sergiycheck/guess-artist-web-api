@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Model } from 'mongoose';
+import { Model, _FilterQuery } from 'mongoose';
 
 @Injectable()
 export class EntityService<
@@ -32,16 +32,15 @@ export class EntityService<
     return entity;
   }
 
-  public async exists(id: string) {
-    const exists = await this.model.exists({ _id: id });
-    if (!exists)
-      throw new NotFoundException(`entity with id ${id} doesn't exist `);
+  public async exists(filter: _FilterQuery<TClassDocument>) {
+    const exists = await this.model.exists(filter);
+    if (!exists) throw new NotFoundException(`Entity doesn't exist `);
 
     return true;
   }
 
   protected async update(id: string, updateEntityDto: TUpdateClassEntityDto) {
-    await this.exists(id);
+    await this.exists({ _id: id });
 
     const { id: idDto, ...updateData } = updateEntityDto;
     const updateEntity = await this.model.findOneAndUpdate(
