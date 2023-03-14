@@ -14,7 +14,7 @@ services:
       - PORT=3050
       - NODE_ENV=dev
       - MONDB_DB_CONN_STR=mongodb://serhii:serhii_pass@mongo_db:27017/music-game-db?authMechanism=DEFAULT&authSource=admin
-      - POPULATE_ARTISTS=0
+      - POPULATE_ARTISTS=1
       - POPULATE_ALBUMS=0
 
     depends_on:
