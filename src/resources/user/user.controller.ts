@@ -15,7 +15,7 @@ import { NotEmptyPipe } from '../../common/pipes/not-empty.pipe.js';
 import { CustomParseObjectIdPipe } from '../../common/pipes/custom-parse-objectid.pipe.js';
 
 @ApiTags('users')
-@Controller('user')
+@Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
