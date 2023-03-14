@@ -31,9 +31,7 @@ export class AlbumDbService extends EntityService<
   }
 
   async findAllAlbumsByArtist(dto: PredefinedArtistsSearchProps) {
-    const count = await this.model.count({
-      artistName: { $regex: dto.term, $options: 'i' },
-    });
+    const count = await this.countOfDocsByArtist(dto);
 
     const results = await this.model
       .find({ artistName: { $regex: dto.term, $options: 'i' } })
@@ -49,8 +47,27 @@ export class AlbumDbService extends EntityService<
     };
   }
 
+  countOfDocsByArtist(dto: PredefinedArtistsSearchProps) {
+    return this.model.count({
+      artistName: { $regex: dto.term, $options: 'i' },
+    });
+  }
+
   insertManyAlbums(dtos: AlbumItunesType[]) {
     return this.model.insertMany(dtos);
+  }
+
+  async getRandomSamplesFromAlbums(size: number) {
+    const randomAlbums = (await this.model
+      .aggregate([{ $sample: { size } }])
+      .exec()) as unknown as AlbumDocument[];
+
+    const data = randomAlbums.map((o) => this.responseMapper.mapResponse(o));
+
+    return {
+      count: data.length,
+      data,
+    };
   }
 
   async checkIfExistsAndInsertMany(dtos: AlbumItunesType[]) {

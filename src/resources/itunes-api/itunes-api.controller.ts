@@ -4,6 +4,7 @@ import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import {
   PredefinedArtistsEnum,
   PredefinedArtistsSearchProps,
+  RandomAlbumsDto,
   SearchProps,
   TopCountry,
 } from './dtos/search-dtos.dto.js';
@@ -31,9 +32,9 @@ export class ItunesApiController {
   @ApiQuery({ name: 'term', enum: PredefinedArtistsEnum })
   @Get('albums-by-predefined-artist')
   async albumsByPredefinedArtist(@Query() dto: PredefinedArtistsSearchProps) {
-    const response = await this.albumDbService.findAllAlbumsByArtist(dto);
+    const response = await this.albumDbService.countOfDocsByArtist(dto);
 
-    if (!response.count) {
+    if (!response) {
       const res = await this.itunesService.getAlbumsByArtist({
         term: dto.term,
         country: 'US',
@@ -43,6 +44,23 @@ export class ItunesApiController {
     }
 
     return this.albumDbService.findAllAlbumsByArtist(dto);
+  }
+
+  @ApiQuery({ name: 'term', enum: PredefinedArtistsEnum })
+  @Get('random-albums-by-predefined-artist')
+  async randomAlbumsByPredefinedArtist(@Query() dto: RandomAlbumsDto) {
+    const response = await this.albumDbService.countOfDocsByArtist(dto);
+
+    if (!response) {
+      const res = await this.itunesService.getAlbumsByArtist({
+        term: dto.term,
+        country: 'US',
+      });
+
+      await this.albumDbService.insertManyAlbums(res.results);
+    }
+
+    return this.albumDbService.getRandomSamplesFromAlbums(dto.size);
   }
 
   @Post('populate-albums-by-artist')
