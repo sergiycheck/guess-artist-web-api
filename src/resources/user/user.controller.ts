@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { UserService } from './user.service.js';
-import { CreateUserDto } from './dto/create-user.dto.js';
+import { CreateUserDto, LoginUserDto } from './dto/create-user.dto.js';
 import { UpdateUserDto } from './dto/update-user.dto.js';
 import { NotEmptyPipe } from '../../common/pipes/not-empty.pipe.js';
 import { CustomParseObjectIdPipe } from '../../common/pipes/custom-parse-objectid.pipe.js';
@@ -40,6 +40,11 @@ export class UserController {
     id: string,
   ) {
     return this.userService.findOneMapped(id);
+  }
+
+  @Post('login')
+  findOneByUserName(@Body() dto: LoginUserDto) {
+    return this.userService.findOneByUserName(dto.name);
   }
 
   @Patch(':id')

@@ -71,6 +71,11 @@ export class UserService extends EntityService<
     return entity ? this.responseMapper.mapResponse(entity.toObject()) : null;
   }
 
+  async findOneByUserName(name: string) {
+    const entity = await this.model.findOne({ name });
+    return entity ? this.responseMapper.mapResponse(entity.toObject()) : null;
+  }
+
   async updateMapped(id: string, updateDto: UpdateUserDto) {
     const updatedEntity = await this.update(id, updateDto);
 

@@ -13,3 +13,11 @@ export class CreateUserDto {
   @IsNumber()
   points: number;
 }
+
+export class LoginUserDto {
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  @Length(1, 50)
+  name: string;
+}
