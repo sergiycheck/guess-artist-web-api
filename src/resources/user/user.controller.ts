@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  BadRequestException,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { UserService } from './user.service.js';
@@ -43,8 +44,10 @@ export class UserController {
   }
 
   @Post('login')
-  findOneByUserName(@Body() dto: LoginUserDto) {
-    return this.userService.findOneByUserName(dto.name);
+  async findOneByUserName(@Body() dto: LoginUserDto) {
+    const res = await this.userService.findOneByUserName(dto.name);
+    if (!res) throw new BadRequestException(`No user with ${dto.name} name.`);
+    return res;
   }
 
   @Patch(':id')
