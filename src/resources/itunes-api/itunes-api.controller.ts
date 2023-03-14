@@ -31,6 +31,17 @@ export class ItunesApiController {
   @ApiQuery({ name: 'term', enum: PredefinedArtistsEnum })
   @Get('albums-by-predefined-artist')
   async albumsByPredefinedArtist(@Query() dto: PredefinedArtistsSearchProps) {
+    const response = await this.albumDbService.findAllAlbumsByArtist(dto);
+
+    if (!response.count) {
+      const res = await this.itunesService.getAlbumsByArtist({
+        term: dto.term,
+        country: 'US',
+      });
+
+      await this.albumDbService.insertManyAlbums(res.results);
+    }
+
     return this.albumDbService.findAllAlbumsByArtist(dto);
   }
 
@@ -41,6 +52,6 @@ export class ItunesApiController {
       country: 'US',
     });
 
-    return this.albumDbService.checkIfExistsAndBatchCreate(res.results);
+    return this.albumDbService.checkIfExistsAndInsertMany(res.results);
   }
 }

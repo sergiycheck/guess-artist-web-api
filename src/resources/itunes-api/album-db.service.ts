@@ -31,9 +31,13 @@ export class AlbumDbService extends EntityService<
   }
 
   async findAllAlbumsByArtist(dto: PredefinedArtistsSearchProps) {
-    const count = await this.model.count({ artistName: dto.term });
+    const count = await this.model.count({
+      artistName: { $regex: dto.term, $options: 'i' },
+    });
 
-    const results = await this.model.find({ artistName: dto.term }).exec();
+    const results = await this.model
+      .find({ artistName: { $regex: dto.term, $options: 'i' } })
+      .exec();
 
     const data = results.map((o) =>
       this.responseMapper.mapResponse(o.toObject()),
@@ -45,7 +49,11 @@ export class AlbumDbService extends EntityService<
     };
   }
 
-  async checkIfExistsAndBatchCreate(dtos: AlbumItunesType[]) {
+  insertManyAlbums(dtos: AlbumItunesType[]) {
+    return this.model.insertMany(dtos);
+  }
+
+  async checkIfExistsAndInsertMany(dtos: AlbumItunesType[]) {
     const dtosToCreate: AlbumItunesType[] = [];
 
     for (let dto of dtos) {
@@ -61,7 +69,7 @@ export class AlbumDbService extends EntityService<
     }
 
     if (dtosToCreate.length) {
-      const results = await this.model.create(dtosToCreate);
+      const results = await this.insertManyAlbums(dtosToCreate);
 
       const data = results.map((o) =>
         this.responseMapper.mapResponse(o.toObject()),

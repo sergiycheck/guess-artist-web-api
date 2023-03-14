@@ -7,6 +7,7 @@ import { INestApplicationContext } from '@nestjs/common';
 import { ItunesApiService } from '../resources/itunes-api/itunes-api.service.js';
 import { PredefinedArtistsEnum } from '../resources/itunes-api/dtos/search-dtos.dto.js';
 import { AlbumDbService } from '../resources/itunes-api/album-db.service.js';
+import { ConfigService } from '@nestjs/config';
 
 export class DbInitializer {
   constructor(
@@ -63,6 +64,10 @@ export class DbInitializer {
     ];
 
     await ArtistModel.create(initialArtists);
+
+    const configService = app.get(ConfigService);
+    const populateEnv = +configService.get('populate.albums');
+    if (!populateEnv) return;
 
     const itunesApiService = app.get(ItunesApiService);
 

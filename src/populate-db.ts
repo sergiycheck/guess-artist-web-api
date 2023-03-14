@@ -7,7 +7,7 @@ import { DbInitializer } from './utils/seed-db.js';
 
 export default async function populateDb(app: INestApplicationContext) {
   const configService = app.get(ConfigService);
-  const populateEnv = +configService.get('POPULATE');
+  const populateEnv = +configService.get('populate.artists');
   const logger = app.get(CustomLogger);
   if (populateEnv === 1) {
     const connection = app.get(CustomConnectionService).getConnection();

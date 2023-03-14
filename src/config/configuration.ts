@@ -11,7 +11,10 @@ const config = {
   database: {
     monboDbConnectionString: process.env.MONDB_DB_CONN_STR,
   },
-  populate: parseInt(process.env.POPULATE, 10) ?? 0,
+  populate: {
+    artists: parseInt(process.env.POPULATE_ARTISTS, 10) ?? 0,
+    albums: parseInt(process.env.POPULATE_ALBUMS, 10) ?? 0,
+  },
 };
 
 const configSchema = z.object({
@@ -20,7 +23,10 @@ const configSchema = z.object({
   database: z.object({
     monboDbConnectionString: z.string(),
   }),
-  populate: z.number(),
+  populate: z.object({
+    artists: z.number(),
+    albums: z.number(),
+  }),
 });
 
 export default configSchema.parse(config);

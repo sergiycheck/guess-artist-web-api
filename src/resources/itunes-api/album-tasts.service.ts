@@ -44,7 +44,7 @@ export class AlbumTaskService {
         limit: '5',
       });
 
-      const { data } = await this.albumDbService.checkIfExistsAndBatchCreate(
+      const { data } = await this.albumDbService.checkIfExistsAndInsertMany(
         res.results,
       );
 
