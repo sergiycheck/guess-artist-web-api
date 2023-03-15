@@ -14,7 +14,10 @@ import {
   AlbumItunesType,
   UpdateAlbumItutes,
 } from './dtos/itunes-responses.dto.js';
-import { PredefinedArtistsSearchProps } from './dtos/search-dtos.dto.js';
+import {
+  PredefinedArtistsSearchProps,
+  RandomAlbumsDto,
+} from './dtos/search-dtos.dto.js';
 
 @Injectable()
 export class AlbumDbService extends EntityService<
@@ -57,9 +60,12 @@ export class AlbumDbService extends EntityService<
     return this.model.insertMany(dtos);
   }
 
-  async getRandomSamplesFromAlbums(size: number) {
+  async getRandomSamplesFromAlbums(dto: RandomAlbumsDto) {
     const randomAlbums = (await this.model
-      .aggregate([{ $sample: { size } }])
+      .aggregate([
+        { $match: { artistName: dto.term } },
+        { $sample: { size: dto.size } },
+      ])
       .exec()) as unknown as AlbumDocument[];
 
     const data = randomAlbums.map((o) => this.responseMapper.mapResponse(o));

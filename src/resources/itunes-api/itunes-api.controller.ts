@@ -60,7 +60,7 @@ export class ItunesApiController {
       await this.albumDbService.insertManyAlbums(res.results);
     }
 
-    return this.albumDbService.getRandomSamplesFromAlbums(dto.size);
+    return this.albumDbService.getRandomSamplesFromAlbums(dto);
   }
 
   @Post('populate-albums-by-artist')
